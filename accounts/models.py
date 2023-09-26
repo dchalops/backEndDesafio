@@ -87,9 +87,6 @@ class EventoElectoral(models.Model):
     nombre = models.CharField(default='', blank=True, null=True, max_length=1000, verbose_name=u'Nombre')
     fecha = models.DateField(blank=True, null=True, verbose_name=u'Fecha Elección')
     
-    def total_empadronados(self):
-        return self.detpersonapadronelectoral_set.filter(status=True).count()
-
     def __str__(self):
         return f'{self.nombre}'
 
@@ -116,7 +113,7 @@ class ListaElectoral(models.Model):
     class Meta:
         verbose_name = u"Lista Electoral"
         verbose_name_plural = u"Listas Electorales"
-        
+
 class TablaResultado(models.Model):
     cab = models.ForeignKey(EventoElectoral, blank=True, null=True, verbose_name=u'Cab', on_delete=models.CASCADE)
     empadronado = models.IntegerField(default=0, verbose_name=u"Numero de empadronados")
@@ -157,16 +154,22 @@ class SubTablaResultado(models.Model):
         super(SubTablaResultado, self).save(*args, **kwargs)
 
 
+class Provincia(models.Model):
+    nombre = models.CharField(default='', blank=True, null=True, max_length=1000, verbose_name=u'Nombre')
+
+class Canton(models.Model):
+    nombre = models.CharField(default='', blank=True, null=True, max_length=1000, verbose_name=u'Nombre')
+    provincia = models.ForeignKey(blank=True, null=True, max_length=1000, verbose_name=u'Provincia')
 
 class DetPersonaPadronElectoral(models.Model):
     cab = models.ForeignKey(EventoElectoral, blank=True, null=True, verbose_name=u'Cab', on_delete=models.CASCADE)
-    persona = models.ForeignKey('sga.Persona', related_name='Generaqr', verbose_name=u'Persona', on_delete=models.CASCADE)
-    inscripcion = models.ForeignKey('sga.Inscripcion', verbose_name=u'Inscripción', blank=True, null=True, on_delete=models.CASCADE)
-    matricula = models.ForeignKey('sga.Matricula', verbose_name=u'Matricula', blank=True, null=True, on_delete=models.CASCADE)
-    tipo = models.IntegerField(default=1, choices=TIPO_PERSONA_PADRON, verbose_name=u'Tipo Empadronado')    
-    lugar = models.CharField(blank=True, null=True, max_length=1000, verbose_name='Lugar')
-    enmesa = models.BooleanField(default=False)
-    puede_justificar = models.BooleanField(default=True)
-    mesasede = models.ForeignKey('voto.ConfiguracionMesaResponsable', verbose_name=u'Mesa', blank=True, null=True, on_delete=models.CASCADE)
-    lugarsede = models.ForeignKey('voto.SedesElectoralesPeriodo', verbose_name=u'Lugar Sede', blank=True, null=True, on_delete=models.CASCADE)
-    excluir = models.BooleanField(default=False)
+    dni = models.CharField(default='', blank=True, null=True, max_length=1000, verbose_name=u'DNI')
+    nombre = models.CharField(default='', blank=True, null=True, max_length=1000, verbose_name=u'Nombre')
+    apellido = models.CharField(default='', blank=True, null=True, max_length=1000, verbose_name=u'Apellido')
+    canton = models.ForeignKey(blank=True, null=True, max_length=1000, verbose_name=u'Canton')
+
+class VotoPersonaPadron(models.Model):
+    cab = models.ForeignKey(EventoElectoral, blank=True, null=True, verbose_name=u'Cab', on_delete=models.CASCADE)
+    persona = models.ForeignKey(DetPersonaPadronElectoral, blank=True, null=True, verbose_name=u'Persona', on_delete=models.CASCADE)
+    lista = models.ForeignKey(ListaElectoral, blank=True, null=True, verbose_name=u'Listas electorales', on_delete=models.CASCADE)
+

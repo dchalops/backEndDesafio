@@ -1,5 +1,5 @@
 Visión general
-Demostración de aplicación para ingreso a Kruger Corportion
+Demostración de aplicación
 
 Dependencies
 Python 3.5
