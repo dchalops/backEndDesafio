@@ -159,14 +159,22 @@ class Provincia(models.Model):
 
 class Canton(models.Model):
     nombre = models.CharField(default='', blank=True, null=True, max_length=1000, verbose_name=u'Nombre')
-    provincia = models.ForeignKey(blank=True, null=True, max_length=1000, verbose_name=u'Provincia')
+    provincia = models.ForeignKey(Provincia, on_delete=models.CASCADE, blank=True, null=True, max_length=1000, verbose_name=u'Provincia')
+
 
 class DetPersonaPadronElectoral(models.Model):
     cab = models.ForeignKey(EventoElectoral, blank=True, null=True, verbose_name=u'Cab', on_delete=models.CASCADE)
     dni = models.CharField(default='', blank=True, null=True, max_length=1000, verbose_name=u'DNI')
     nombre = models.CharField(default='', blank=True, null=True, max_length=1000, verbose_name=u'Nombre')
     apellido = models.CharField(default='', blank=True, null=True, max_length=1000, verbose_name=u'Apellido')
-    canton = models.ForeignKey(blank=True, null=True, max_length=1000, verbose_name=u'Canton')
+    canton = models.ForeignKey(
+        Canton, 
+        on_delete=models.CASCADE, 
+        blank=True, 
+        null=True, 
+        max_length=1000, 
+        verbose_name=u'Canton'
+    )
 
 class VotoPersonaPadron(models.Model):
     cab = models.ForeignKey(EventoElectoral, blank=True, null=True, verbose_name=u'Cab', on_delete=models.CASCADE)

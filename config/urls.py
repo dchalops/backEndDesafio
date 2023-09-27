@@ -31,7 +31,7 @@ urlpatterns = [
     path("api/", include(router.urls)),
     path('api/v1/docs/', include_docs_urls(title='Rest API')),
     path('api/v1/schema/', get_schema_view(
-        title="Django REST API",
+        title="Desarrollo de Software (Desafío)",
         description="Django REST API destinado a integrarse con React Frontend",
         version="1.0.0"
     ), name='openapi-schema'),
