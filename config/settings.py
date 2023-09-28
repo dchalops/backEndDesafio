@@ -18,7 +18,14 @@ SECRET_KEY = '+$iezm37m$xo7w4h49$tq-vc8)*=!40q3nst62u)571*_03#6='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
+PORT = int(os.environ.get("PORT", 8000))
+
+if 'GAE_APPLICATION' in os.environ:
+    DEBUG = False
+    ALLOWED_HOSTS = ["*"]
+else:
+    DEBUG = True
+    ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
 
 # Application definition
 
@@ -148,8 +155,8 @@ if IS_POSTGRESQL is True:
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'admin_D',
             'USER': 'postgres',
-            'PASSWORD': 'admin',
-            'HOST': 'localhost',
+            'PASSWORD': 'Chalo2130198720.',
+            'HOST': '35.184.14.110',
             'PORT': '5432',
         }
     }

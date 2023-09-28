@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: desafio-1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: desafioE  # Asegúrate de que esta etiqueta coincida con la de la plantilla
+  template:
+    metadata:
+      labels:
+        app: desafioE  # Asegúrate de que esta etiqueta coincida con la del selector
+    spec:
+      containers:
+        - name: my-desafio
+          image: gcr.io/python/desafio-1:v1
+          ports:
+            - containerPort: 8000
