@@ -141,10 +141,7 @@ class TablaResultado(models.Model):
         verbose_name_plural = u'Detalles de Mesas'
 
     def __str__(self):
-        return f'{self.mesa_responsable} {self.gremio_periodo} '
-
-    def mis_listas(self):
-        return self.gremio_periodo.listagremio_set.filter(status=True)
+        return f'{self.cab}'
 
     def save(self, *args, **kwargs):
         super(TablaResultado, self).save(*args, **kwargs)
