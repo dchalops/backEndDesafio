@@ -18,7 +18,6 @@ ROLE_CHOICES = (
 )
 
 STATUS_CHOICES = (
-
     ('active', 'ACTIVE'),
     ('banned', 'BANNED'),
 )
@@ -98,10 +97,20 @@ class EventoElectoral(models.Model):
         verbose_name = u"Padron Electoral"
         verbose_name_plural = u"Padron Electoral"
 
+
+ESTADO_VOTO = (
+    (1, 'Valido'),
+    (2, 'Blanco'),
+    (3, 'Nulo'),
+)
+
+
 class ListaElectoral(models.Model):
+    tipo = models.IntegerField(choices=ESTADO_VOTO, default=1, verbose_name='Tipo Voto')
     nombre = models.CharField(default='', blank=True, null=True, max_length=1000, verbose_name=u'Nombre')
     cab = models.ForeignKey(EventoElectoral, blank=True, null=True, verbose_name=u'Cab', on_delete=models.CASCADE)
     logo = models.CharField(default='', blank=True, null=True, max_length=2000, verbose_name=u'Logo')
+    logo_file = models.FileField(default='', blank=True, null=True, max_length=2000, verbose_name=u'Logo File')
 
     def __str__(self):
         return f'{self.nombre}'
@@ -113,6 +122,7 @@ class ListaElectoral(models.Model):
     class Meta:
         verbose_name = u"Lista Electoral"
         verbose_name_plural = u"Listas Electorales"
+
 
 class TablaResultado(models.Model):
     cab = models.ForeignKey(EventoElectoral, blank=True, null=True, verbose_name=u'Cab', on_delete=models.CASCADE)
@@ -138,6 +148,7 @@ class TablaResultado(models.Model):
     def save(self, *args, **kwargs):
         super(TablaResultado, self).save(*args, **kwargs)
 
+
 class SubTablaResultado(models.Model):
     detallemesa = models.ForeignKey(TablaResultado, blank=True, null=True, verbose_name=u'Detalle de la mesa', on_delete=models.CASCADE)
     lista = models.ForeignKey(ListaElectoral, blank=True, null=True, verbose_name=u'Listas electorales', on_delete=models.CASCADE)
@@ -156,6 +167,7 @@ class SubTablaResultado(models.Model):
 
 class Provincia(models.Model):
     nombre = models.CharField(default='', blank=True, null=True, max_length=1000, verbose_name=u'Nombre')
+
 
 class Canton(models.Model):
     nombre = models.CharField(default='', blank=True, null=True, max_length=1000, verbose_name=u'Nombre')
@@ -176,7 +188,9 @@ class DetPersonaPadronElectoral(models.Model):
         verbose_name=u'Canton'
     )
 
+
 class VotoPersonaPadron(models.Model):
+    tipo = models.IntegerField( choices=ESTADO_VOTO, default=1, verbose_name='Tipo Voto')
     cab = models.ForeignKey(EventoElectoral, blank=True, null=True, verbose_name=u'Cab', on_delete=models.CASCADE)
     persona = models.ForeignKey(DetPersonaPadronElectoral, blank=True, null=True, verbose_name=u'Persona', on_delete=models.CASCADE)
     lista = models.ForeignKey(ListaElectoral, blank=True, null=True, verbose_name=u'Listas electorales', on_delete=models.CASCADE)

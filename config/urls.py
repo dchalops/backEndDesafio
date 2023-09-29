@@ -22,8 +22,7 @@ urlpatterns = [
     # Authenticated Users only.
     path('admin/docs/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
-
-
+    path('api/', include('mobile.urls')),
     path('', TemplateView.as_view(
         template_name='index.html',
         extra_context={'schema_url': 'openapi-schema'}

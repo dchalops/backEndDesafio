@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext as _
-from .models import CustomUser
+from .models import *
 
 
 class CustomUserAdmin(UserAdmin):
@@ -37,4 +37,47 @@ class CustomUserAdmin(UserAdmin):
     list_filter = ('is_staff', 'role', 'isVerified', 'company','documento',)
 
 
+class EventoElectoralAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'fecha', )
+    ordering = ('nombre',)
+    search_fields = ('nombre',)
+
+
+class ListaElectoralAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'tipo', 'cab', 'logo_file', )
+    ordering = ('nombre',)
+    search_fields = ('nombre',)
+
+
+class ProvinciaAdmin(admin.ModelAdmin):
+    list_display = ('nombre', )
+    ordering = ('nombre',)
+    search_fields = ('nombre',)
+
+
+class CantonAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'provincia')
+    ordering = ('nombre',)
+    search_fields = ('nombre',)
+
+
+class DetPersonaPadronElectoralAdmin(admin.ModelAdmin):
+    list_display = ('dni', 'nombre', 'apellido', 'canton', 'cab')
+    ordering = ('nombre',)
+    search_fields = ('nombre',)
+
+
+class VotoPersonaPadronAdmin(admin.ModelAdmin):
+    list_display = ('persona', 'cab', 'tipo', 'lista',)
+    ordering = ('cab',)
+    search_fields = ('cab',)
+
+
+
+admin.site.register(Canton, CantonAdmin)
+admin.site.register(Provincia, ProvinciaAdmin)
+admin.site.register(EventoElectoral, EventoElectoralAdmin)
+admin.site.register(ListaElectoral, ListaElectoralAdmin)
+admin.site.register(DetPersonaPadronElectoral, DetPersonaPadronElectoralAdmin)
+admin.site.register(VotoPersonaPadron, VotoPersonaPadronAdmin)
 admin.site.register(CustomUser, CustomUserAdmin)
