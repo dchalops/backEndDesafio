@@ -25,7 +25,7 @@ if 'GAE_APPLICATION' in os.environ:
     ALLOWED_HOSTS = ["*"]
 else:
     DEBUG = True
-    ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
+    ALLOWED_HOSTS = ["104.198.146.17", "localhost", "0.0.0.0", "127.0.0.1"]
 
 # Application definition
 
@@ -43,7 +43,6 @@ INSTALLED_APPS = [
 
     # Native Apps
     'accounts.apps.AccountsConfig',
-    'mobile.apps.MobileConfig',
 
     # 3rd Party
     'rest_framework',  # https://www.django-rest-framework.org/
@@ -231,7 +230,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://sub.example.com",
     "http://localhost:8080",
     "http://localhost:3000",  # React App will be on this port
-    "http://127.0.0.1:9000"
+    "http://127.0.0.1:9000",
+    "http://104.198.146.17:3000"
 ]
 
 
