@@ -35,7 +35,7 @@ try:
     tab_.votoblanco=total_blanco
     tab_.votonulo=total_nulos
     tab_.save()
-    listas_ = ListaElectoral.objects.filter(cab_id=2)
+    listas_ = ListaElectoral.objects.filter(cab_id=2, tipo=1)
     for l in listas_:
         total_lista = qsvotos.filter(lista=l).count()
         if SubTablaResultado.objects.filter(detallemesa=tab_, lista=l):
