@@ -137,8 +137,9 @@ class TablaResultado(models.Model):
         return SubTablaResultado.objects.filter(status=True, detallemesa=self).order_by('lista__nombre')
 
     class Meta:
-        verbose_name = u'Detalle Mesa'
-        verbose_name_plural = u'Detalles de Mesas'
+        verbose_name = u'Tabla Resultados'
+        verbose_name_plural = u'Tabla Resultados'
+
 
     def __str__(self):
         return f'{self.cab}'
@@ -153,8 +154,8 @@ class SubTablaResultado(models.Model):
     totalvoto = models.IntegerField(default=0, verbose_name=u"Total de votos")
 
     class Meta:
-        verbose_name = u'SubDetalles Mesa'
-        verbose_name_plural = u'SubDetalles de Mesas'
+        verbose_name = u'SubTabla Resultados'
+        verbose_name_plural = u'SubTabla Resultados'
 
     def __str__(self):
         return f'{self.detallemesa} {self.lista} '
