@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     # Native Apps
     'accounts.apps.AccountsConfig',
+    'mobile.apps.MobileConfig',
 
     # 3rd Party
     'rest_framework',  # https://www.django-rest-framework.org/

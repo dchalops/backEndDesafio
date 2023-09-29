@@ -85,7 +85,8 @@ class CustomUser(AbstractUser):
 class EventoElectoral(models.Model):
     nombre = models.CharField(default='', blank=True, null=True, max_length=1000, verbose_name=u'Nombre')
     fecha = models.DateField(blank=True, null=True, verbose_name=u'Fecha Elección')
-    
+    activo = models.BooleanField(default=False, verbose_name='Estado')
+
     def __str__(self):
         return f'{self.nombre}'
 

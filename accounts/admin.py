@@ -38,7 +38,7 @@ class CustomUserAdmin(UserAdmin):
 
 
 class EventoElectoralAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'fecha', )
+    list_display = ('nombre', 'fecha', 'activo' )
     ordering = ('nombre',)
     search_fields = ('nombre',)
 
