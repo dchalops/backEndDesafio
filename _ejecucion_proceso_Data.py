@@ -39,7 +39,7 @@ try:
     for l in listas_:
         total_lista = qsvotos.filter(lista=l).count()
         if SubTablaResultado.objects.filter(detallemesa=tab_, lista=l):
-            subtab_ = SubTablaResultado.objects.filter(detallemesa=tab_, lista=l)
+            subtab_ = SubTablaResultado.objects.filter(detallemesa=tab_, lista=l).first()
         else:
             subtab_ = SubTablaResultado(detallemesa=tab_, lista=l)
         subtab_.totalvoto=total_lista
