@@ -27,8 +27,8 @@ class LoginView(APIView):
         try:
             data = request.data
             dni = data.get('dni')
-            if EventoElectoral.objects.filter(fecha__lte=datetime.now().date()).exists():
-                evento_ = EventoElectoral.objects.filter(fecha__lte=datetime.now().date()).first()
+            if EventoElectoral.objects.filter(activo=True).exists():
+                evento_ = EventoElectoral.objects.filter(activo=True).first()
                 if DetPersonaPadronElectoral.objects.filter(cab=evento_, dni__icontains=dni).exists():
                     detpersona_ = DetPersonaPadronElectoral.objects.filter(cab=evento_, dni__icontains=dni).first()
                     if VotoPersonaPadron.objects.filter(persona=detpersona_).exists():
