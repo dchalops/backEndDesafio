@@ -32,7 +32,7 @@ class LoginView(APIView):
                 if DetPersonaPadronElectoral.objects.filter(cab=evento_, dni__icontains=dni).exists():
                     detpersona_ = DetPersonaPadronElectoral.objects.filter(cab=evento_, dni__icontains=dni).first()
                     if VotoPersonaPadron.objects.filter(persona=detpersona_).exists():
-                        raise NameError('Usted ya cuenta con un boto registrado')
+                        raise NameError('Usted ya cuenta con un voto registrado')
                     token = self.generate_token(detpersona_)
                     user_data = {
                         'token': token,

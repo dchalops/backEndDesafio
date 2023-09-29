@@ -188,6 +188,9 @@ class DetPersonaPadronElectoral(models.Model):
         verbose_name=u'Canton'
     )
 
+    def __str__(self):
+        return f"{self.dni} - {self.apellido} {self.nombre}"
+
 
 class VotoPersonaPadron(models.Model):
     tipo = models.IntegerField( choices=ESTADO_VOTO, default=1, verbose_name='Tipo Voto')
